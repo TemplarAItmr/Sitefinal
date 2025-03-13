@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+import { languages } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout 
+  title={t('terms.page.title')}
+  description={t('terms.page.description')}
+>
+  <Header />
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h1 class="text-4xl font-poppins font-bold gradient-text mb-8">
+            {t('terms.page.heading')}
+          </h1>
+
+          <p class="text-white/60 mb-8">
+            {t('terms.lastUpdate')}
+          </p>
+
+          <div class="space-y-8">
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.acceptance.title')}
+              </h2>
+              <p class="text-white/80">
+                {t('terms.acceptance.content')}
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.services.title')}
+              </h2>
+              <p class="text-white/80 mb-4">
+                {t('terms.services.description')}
+              </p>
+              <ul class="list-disc pl-6 text-white/80 space-y-2">
+                {t('terms.services.list').split('|').map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.usage.title')}
+              </h2>
+              <p class="text-white/80 mb-4">
+                {t('terms.usage.description')}
+              </p>
+              <ul class="list-disc pl-6 text-white/80 space-y-2">
+                {t('terms.usage.list').split('|').map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.intellectual.title')}
+              </h2>
+              <p class="text-white/80">
+                {t('terms.intellectual.content')}
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.liability.title')}
+              </h2>
+              <p class="text-white/80">
+                {t('terms.liability.content')}
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.modifications.title')}
+              </h2>
+              <p class="text-white/80">
+                {t('terms.modifications.content')}
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.law.title')}
+              </h2>
+              <p class="text-white/80">
+                {t('terms.law.content')}
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-poppins font-semibold text-accent mb-4">
+                {t('terms.contact.title')}
+              </h2>
+              <p class="text-white/80 mb-4">
+                {t('terms.contact.description')}
+              </p>
+              <div class="text-white/80">
+                <p>E-mail: templarai.tmr@gmail.com</p>
+                <p>{t('terms.contact.phone')}: +351 913 139 933</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

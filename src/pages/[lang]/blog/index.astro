@@ -1,0 +1,68 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import { getLangFromUrl, useTranslations } from '../../../utils/i18n';
+import { languages } from '../../../i18n/ui';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const posts = [
+  {
+    title: t('blog.ai.customer.service.title'),
+    description: t('blog.ai.customer.service.description'),
+    date: '15 Mar 2024',
+    category: 'Inteligência Artificial',
+    slug: 'ia-revolucionando-atendimento-cliente',
+    image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=800'
+  },
+  {
+    title: t('blog.automation.small.business.title'),
+    description: t('blog.automation.small.business.description'),
+    date: '10 Mar 2024',
+    category: 'Automação',
+    slug: 'automacao-inteligente-pequenas-empresas',
+    image: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=800'
+  },
+  {
+    title: t('blog.future.work.ai.title'),
+    description: t('blog.future.work.ai.description'),
+    date: '5 Mar 2024',
+    category: 'Tendências',
+    slug: 'futuro-trabalho-ia',
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800'
+  }
+];
+---
+
+<Layout 
+  title={t('blog.page.title')}
+  description={t('blog.page.description')}
+>
+  <Header />
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-5xl font-poppins font-bold gradient-text mb-8">
+            {t('blog.page.heading')}
+          </h1>
+          <p class="text-lg text-white/80 mb-12">
+            {t('blog.page.subtitle')}
+          </p>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            {posts.map(post => (
+              <BlogCard {...post} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

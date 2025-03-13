@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout 
+  title="Contacto - TemplarAI"
+  description="Entre em contacto com a TemplarAI para soluções personalizadas em Inteligência Artificial"
+>
+  <Header />
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-poppins font-bold gradient-text mb-4">
+              Entre em Contacto
+            </h1>
+            <p class="text-lg text-white/80 mb-8">
+              Estamos prontos para ajudar a transformar seu negócio com soluções de IA
+            </p>
+            <div class="flex flex-col md:flex-row justify-center md:space-x-8 space-y-4 md:space-y-0 mb-12">
+              <a 
+                href="tel:+351913139933"
+                class="text-accent hover:text-white transition-colors flex items-center justify-center"
+              >
+                <span class="mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </span>
+                +351 913 139 933
+              </a>
+              <a 
+                href="mailto:templarai.tmr@gmail.com"
+                class="text-accent hover:text-white transition-colors flex items-center justify-center"
+              >
+                <span class="mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </span>
+                templarai.tmr@gmail.com
+              </a>
+            </div>
+          </div>
+          
+          <!-- Calendly Widget Section -->
+          <div class="glass p-4 rounded-lg relative overflow-hidden h-[800px]">
+            <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-xl"></div>
+            <div class="relative z-10 h-full">
+              <div class="calendly-inline-widget w-full h-full" data-url="https://calendly.com/templarai-tmr/30min"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>

@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+import { languages } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const successCases = [
+  {
+    title: t('cases.restaurant.title'),
+    company: t('cases.restaurant.company'),
+    description: t('cases.restaurant.description'),
+    results: [
+      t('cases.restaurant.results.1'),
+      t('cases.restaurant.results.2'),
+      t('cases.restaurant.results.3')
+    ],
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800'
+  },
+  {
+    title: t('cases.fitness.title'),
+    company: t('cases.fitness.company'),
+    description: t('cases.fitness.description'),
+    results: [
+      t('cases.fitness.results.1'),
+      t('cases.fitness.results.2'),
+      t('cases.fitness.results.3')
+    ],
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800'
+  },
+  {
+    title: t('cases.hotel.title'),
+    company: t('cases.hotel.company'),
+    description: t('cases.hotel.description'),
+    results: [
+      t('cases.hotel.results.1'),
+      t('cases.hotel.results.2'),
+      t('cases.hotel.results.3')
+    ],
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800'
+  }
+];
+---
+
+<Layout 
+  title={t('cases.page.title')}
+  description={t('cases.page.description')}
+>
+  <Header />
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-poppins font-bold gradient-text mb-4">
+              {t('cases.page.heading')}
+            </h1>
+            <p class="text-lg text-white/80">
+              {t('cases.page.subtitle')}
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            {successCases.map(caseStudy => (
+              <CaseCard {...caseStudy} />
+            ))}
+          </div>
+
+          <div class="mt-12 text-center">
+            <a 
+              href={`/${lang}/contacto`}
+              class="inline-block glow-effect bg-gradient-to-r from-secondary to-accent text-white px-8 py-3 rounded-lg transition-all hover:scale-105"
+            >
+              {t('cases.cta.title')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

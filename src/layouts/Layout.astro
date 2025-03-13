@@ -1,0 +1,97 @@
+---
+import '@fontsource/inter';
+import '@fontsource/poppins';
+import Footer from '../components/Footer.astro';
+import LoadingPage from '../components/LoadingPage.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "TemplarAI - Soluções inovadoras em Inteligência Artificial para empresas" 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="font-inter bg-neutral text-white">
+    <LoadingPage />
+    <div class="min-h-screen relative overflow-hidden">
+      <!-- Futuristic background -->
+      <div class="fixed inset-0 bg-cyber-grid bg-[length:50px_50px] opacity-20"></div>
+      <div class="fixed inset-0 bg-gradient-radial from-secondary/20 via-transparent to-transparent opacity-40"></div>
+      
+      <!-- Content -->
+      <div class="relative z-10">
+        <slot />
+      </div>
+    </div>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --primary: #0B0F3B;
+    --secondary: #6E44FF;
+    --accent: #00F5FF;
+    --neutral: #0A0A1B;
+    --neutral-dark: #8A8AA3;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  /* Glowing effect for interactive elements */
+  .glow-effect {
+    position: relative;
+  }
+
+  .glow-effect::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    filter: blur(15px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .glow-effect:hover::after {
+    opacity: 0.7;
+  }
+
+  /* Glass effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-x 15s ease infinite;
+  }
+</style>

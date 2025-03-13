@@ -1,0 +1,138 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../utils/i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import { Image } from 'astro:assets';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const menuItems = [
+  { href: '/', text: t('nav.home') },
+  { href: '/sobre', text: t('nav.about') },
+  { href: '/servicos', text: t('nav.services') },
+  { href: '/casos-sucesso', text: t('nav.cases') },
+  { href: '/blog', text: t('nav.blog') },
+  { href: '/contacto', text: t('nav.contact') }
+];
+---
+
+<header class="fixed w-full z-50 bg-primary/95 backdrop-blur-lg border-b border-accent/10 transition-all duration-300" id="main-header">
+  <div class="container mx-auto px-4 py-3">
+    <nav class="flex items-center justify-between">
+      <a href={`/${lang}`} class="flex items-center gap-2">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <Image 
+            src="/logo.png" 
+            alt="TemplarAI Logo" 
+            width={40}
+            height={40}
+            class="w-auto h-full object-contain"
+          />
+        </div>
+        <span class="text-xl font-poppins font-bold gradient-text">TemplarAI</span>
+      </a>
+      
+      <div class="flex items-center gap-8">
+        <div class="hidden md:flex items-center justify-center gap-6">
+          {menuItems.map(item => (
+            <a 
+              href={getLocalizedPath(item.href, lang)}
+              class="text-white hover:text-accent transition-colors text-sm font-bold whitespace-nowrap"
+            >
+              {item.text}
+            </a>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-4">
+          <LanguageSelector />
+          <a 
+            href={getLocalizedPath('/contacto', lang)}
+            class="glow-effect bg-gradient-to-r from-secondary to-accent text-white px-4 py-1.5 rounded-lg transition-all hover:scale-105 text-xs"
+          >
+            {t('cta.consultation')}
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button 
+          class="md:hidden text-white hover:text-accent transition-colors"
+          aria-label="Abrir menu"
+          id="mobile-menu-button"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div 
+      class="hidden md:hidden absolute top-full left-0 right-0 bg-primary/95 backdrop-blur-lg border-t border-accent/10 p-4"
+      id="mobile-menu"
+    >
+      <div class="flex flex-col gap-4">
+        {menuItems.map(item => (
+          <a 
+            href={getLocalizedPath(item.href, lang)}
+            class="text-white hover:text-accent transition-colors text-sm font-bold"
+          >
+            {item.text}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const header = document.getElementById('main-header');
+
+  // Handle mobile menu toggle
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.style.animation = isExpanded ? 'slideOut 0.3s ease-out' : 'slideIn 0.3s ease-out';
+    });
+  }
+
+  // Handle scroll effects
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 50) {
+      header.classList.add('scrolled');
+      header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+    } else {
+      header.classList.remove('scrolled');
+      header.style.boxShadow = 'none';
+    }
+    lastScroll = currentScroll;
+  });
+</script>
+
+<style>
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+
+  .scrolled {
+    background: rgba(var(--primary-rgb), 0.98) !important;
+    backdrop-filter: blur(12px);
+  }
+
+  #mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
+</style>

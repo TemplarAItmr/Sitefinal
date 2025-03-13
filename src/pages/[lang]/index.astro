@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Services from '../../components/Services.astro';
+import TypewriterText from '../../components/TypewriterText.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+import { languages } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title="TemplarAI - Soluções em Inteligência Artificial">
+  <Header />
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-poppins font-bold text-white mb-12 leading-[1.2] tracking-normal">
+              Desenvolvemos <TypewriterText words={['soluções', 'automações', 'agentes']} className="gradient-text" /> IA para o seu negócio
+            </h1>
+            <p class="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto mt-8">
+              {t('hero.subtitle')}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href={`/${lang}/contacto`}
+                class="glow-effect bg-gradient-to-r from-secondary to-accent text-white px-8 py-3 rounded-lg transition-all hover:scale-105"
+              >
+                {t('hero.cta.primary')}
+              </a>
+              <a 
+                href={`/${lang}/servicos`}
+                class="glass text-white px-8 py-3 rounded-lg hover:scale-105 transition-all border border-white/10"
+              >
+                {t('hero.cta.secondary')}
+              </a>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-16">
+            {[
+              { number: '98%', label: t('stats.satisfaction') },
+              { number: '500+', label: t('stats.projects') },
+              { number: '45%', label: t('stats.productivity') },
+              { number: '24/7', label: t('stats.support') }
+            ].map(stat => (
+              <div class="glass p-4 md:p-6 rounded-lg text-center hover:scale-105 transition-transform">
+                <div class="text-2xl md:text-3xl font-bold gradient-text mb-2">{stat.number}</div>
+                <div class="text-sm text-white/70">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Clients -->
+    <section class="py-20 relative overflow-hidden">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-poppins font-bold gradient-text mb-4">
+            {t('companies.title')}
+          </h2>
+          <p class="text-lg text-white/80 max-w-2xl mx-auto">
+            {t('companies.subtitle')}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+          {[1, 2, 3, 4].map(() => (
+            <div class="glass p-6 rounded-lg w-full h-24 flex items-center justify-center hover:scale-105 transition-transform">
+              <div class="w-32 h-8 bg-white/10 rounded animate-pulse"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <Services />
+
+    <!-- CTA Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto glass rounded-lg p-8 md:p-12 text-center relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-xl"></div>
+          <div class="relative z-10">
+            <h2 class="text-3xl md:text-4xl font-poppins font-bold text-white mb-4">
+              {t('contact.title')}
+            </h2>
+            <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+              {t('contact.subtitle')}
+            </p>
+            <a 
+              href={`/${lang}/contacto`}
+              class="glow-effect bg-gradient-to-r from-secondary to-accent text-white px-8 py-3 rounded-lg transition-all hover:scale-105 inline-block"
+            >
+              {t('contact.cta')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,49 @@
+---
+interface Props {
+  words: string[];
+  prefix?: string;
+  suffix?: string;
+  className?: string;
+}
+
+const { words, prefix = '', suffix = '', className = '' } = Astro.props;
+---
+
+<div class={`typewriter-container ${className}`}>
+  {prefix}<span id="typewriter" class="gradient-text"></span>{suffix}
+</div>
+
+<script>
+  import Typed from 'typed.js';
+
+  const typewriterElement = document.getElementById('typewriter');
+  if (typewriterElement) {
+    const typed = new Typed(typewriterElement, {
+      strings: ['Soluções', 'Automações', 'Agentes'],
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 2000,
+      loop: true,
+      smartBackspace: true,
+      cursorChar: '|',
+    });
+  }
+</script>
+
+<style>
+  .typewriter-container {
+    display: inline;
+    line-height: 1.5;
+    padding-bottom: 4px;
+  }
+  .typed-cursor {
+    color: var(--accent);
+    font-weight: bold;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+</style>

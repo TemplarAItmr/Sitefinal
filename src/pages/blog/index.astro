@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const posts = [
+  {
+    title: 'Como a IA está Revolucionando o Atendimento ao Cliente',
+    description: 'Descubra como chatbots e assistentes virtuais estão transformando a experiência do cliente e otimizando recursos.',
+    date: '15 Mar 2024',
+    category: 'Inteligência Artificial',
+    slug: 'ia-revolucionando-atendimento-cliente',
+    image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=800'
+  },
+  {
+    title: 'Automação Inteligente para Pequenas Empresas',
+    description: 'Guia prático sobre como implementar automação de processos em pequenos negócios de forma eficiente.',
+    date: '10 Mar 2024',
+    category: 'Automação',
+    slug: 'automacao-inteligente-pequenas-empresas',
+    image: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=800'
+  },
+  {
+    title: 'O Futuro do Trabalho com IA',
+    description: 'Análise das tendências e mudanças no mercado de trabalho com a adoção crescente da Inteligência Artificial.',
+    date: '5 Mar 2024',
+    category: 'Tendências',
+    slug: 'futuro-trabalho-ia',
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800'
+  }
+];
+---
+
+<Layout 
+  title="Blog - TemplarAI"
+  description="Artigos e insights sobre Inteligência Artificial, automação e transformação digital"
+>
+  <Header />
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-5xl font-poppins font-bold gradient-text mb-8">
+            Blog TemplarAI
+          </h1>
+          <p class="text-lg text-white/80 mb-12">
+            Descubra as últimas tendências em IA, dicas de automação e histórias de sucesso em transformação digital.
+          </p>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            {posts.map(post => (
+              <BlogCard {...post} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

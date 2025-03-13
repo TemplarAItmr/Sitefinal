@@ -1,0 +1,19 @@
+---
+import { getLangFromUrl, useTranslations } from '../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="max-w-4xl mx-auto py-4">
+  <!-- Calendly Widget Section -->
+  <h1 class="text-4xl md:text-5xl font-poppins font-bold gradient-text text-center mb-8">Agende uma reunião</h1>
+  <div class="glass p-4 rounded-lg relative overflow-hidden h-[800px]">
+    <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-xl"></div>
+    <div class="relative z-10 h-full">
+      <div class="calendly-inline-widget w-full h-full" data-url="https://calendly.com/templarai-tmr/30min"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>

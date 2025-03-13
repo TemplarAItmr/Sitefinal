@@ -1,0 +1,73 @@
+---
+import { languages } from '../i18n/ui';
+import { getLangFromUrl, getLocalizedPath } from '../utils/i18n';
+
+const url = Astro.url;
+const currentLang = getLangFromUrl(url);
+const currentPath = url.pathname.replace(`/${currentLang}`, '') || '/';
+
+const flags = {
+  pt: "🇵🇹",
+  en: "🇬🇧"
+};
+---
+
+<div class="relative">
+  <button
+    id="language-button"
+    class="flex items-center justify-center w-8 h-8 hover:scale-110 transition-transform"
+    aria-label="Select language"
+    title={languages[currentLang]}
+  >
+    <span class="text-2xl" role="img" aria-label={languages[currentLang]}>{flags[currentLang]}</span>
+  </button>
+
+  <div
+    id="language-dropdown"
+    class="hidden absolute top-full right-0 mt-2 bg-primary/95 backdrop-blur-lg border border-accent/10 rounded-lg shadow-lg py-2"
+  >
+    {Object.entries(languages).map(([lang, label]) => {
+      if (lang === currentLang) return null;
+      return (
+        <a
+          href={getLocalizedPath(currentPath, lang)}
+          class="flex items-center gap-2 px-4 py-2 hover:bg-white/5 transition-colors"
+          title={label}
+        >
+          <span class="text-2xl" role="img" aria-label={label}>{flags[lang]}</span>
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  /* Ensure emoji flags display correctly */
+  span[role="img"] {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-style: normal;
+    -webkit-font-feature-settings: normal;
+    font-feature-settings: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+
+<script>
+  const button = document.getElementById('language-button');
+  const dropdown = document.getElementById('language-dropdown');
+
+  if (button && dropdown) {
+    button.addEventListener('click', () => {
+      dropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!button.contains(e.target as Node)) {
+        dropdown.classList.add('hidden');
+      }
+    });
+  }
+</script>
