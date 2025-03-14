@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
-import ContactForm from '../../components/ContactForm.astro';
 import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 import { languages } from '../../i18n/ui';
 
@@ -32,6 +31,7 @@ const t = useTranslations(lang);
           </div>
 
           <div class="grid md:grid-cols-2 gap-12">
+            <!-- Informações de Contato (Esquerda) -->
             <div class="glass p-8 rounded-lg">
               <h2 class="text-2xl font-poppins font-semibold text-white mb-6">
                 {t('contact.info.title')}
@@ -65,11 +65,17 @@ const t = useTranslations(lang);
               </div>
             </div>
 
+            <!-- Widget Calendly (Direita) -->
             <div class="glass p-8 rounded-lg">
               <h2 class="text-2xl font-poppins font-semibold text-white mb-6">
-                {t('contact.form.title')}
+                Agende uma reunião
               </h2>
-              <ContactForm />
+              <div class="relative overflow-hidden h-[500px]">
+                <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-xl"></div>
+                <div class="relative z-10 h-full">
+                  <div class="calendly-inline-widget w-full h-full" data-url="https://calendly.com/templarai-tmr/30min"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -77,3 +83,5 @@ const t = useTranslations(lang);
     </section>
   </main>
 </Layout>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
