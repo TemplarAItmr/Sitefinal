@@ -1,0 +1,17 @@
+# Configurações do Netlify
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Redirecionamentos
+[[redirects]]
+  from = "/"
+  to = "/pt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/pt/"
+  status = 301
+  force = true 

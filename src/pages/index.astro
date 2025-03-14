@@ -1,6 +1,38 @@
 ---
 import { defaultLang } from '../i18n/ui';
-
-// Redirect to default language without showing a redirect page
-return Astro.redirect(`/${defaultLang}/`, 301);
 ---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content={`0;url=/${defaultLang}/`} />
+  <title>Redirecionando...</title>
+  <script define:vars={{defaultLang}}>
+    window.location.href = `/${defaultLang}/`;
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0A0A1B;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    a {
+      color: #00F5FF;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <p>Se você não for redirecionado automaticamente, <a href={`/${defaultLang}/`}>clique aqui</a>.</p>
+</body>
+</html>
