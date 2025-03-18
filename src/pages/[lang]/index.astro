@@ -12,6 +12,10 @@ export function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Define the heading text based on language
+const headingStart = lang === 'en' ? 'We develop' : 'Desenvolvemos';
+const headingEnd = lang === 'en' ? 'AI for your business' : 'IA para o seu negócio';
 ---
 
 <Layout title="TemplarAI - Soluções em Inteligência Artificial">
@@ -23,7 +27,7 @@ const t = useTranslations(lang);
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-poppins font-bold text-white mb-12 leading-[1.2] tracking-normal">
-              Desenvolvemos <TypewriterText words={['soluções', 'automações', 'agentes']} className="gradient-text" /> IA para o seu negócio
+              {headingStart} <TypewriterText words={lang === 'en' ? ['solutions', 'automations', 'agents'] : ['soluções', 'automações', 'agentes']} className="gradient-text" /> {headingEnd}
             </h1>
             <p class="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto mt-8">
               {t('hero.subtitle')}
@@ -111,3 +115,20 @@ const t = useTranslations(lang);
     </section>
   </main>
 </Layout>
+
+<script>
+  // This script ensures that the TypewriterText component is properly initialized
+  // for both English and Portuguese versions
+  document.addEventListener('astro:page-load', () => {
+    // Force re-initialization of any client-side scripts
+    const scripts = document.querySelectorAll('script[data-astro-rerun]');
+    scripts.forEach(script => {
+      const newScript = document.createElement('script');
+      Array.from(script.attributes).forEach(attr => {
+        newScript.setAttribute(attr.name, attr.value);
+      });
+      newScript.textContent = script.textContent;
+      script.parentNode.replaceChild(newScript, script);
+    });
+  });
+</script>

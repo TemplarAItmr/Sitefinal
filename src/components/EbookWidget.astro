@@ -1,0 +1,450 @@
+---
+// EbookWidget.astro - A component for displaying the e-book lead capture widget
+import { getLangFromUrl, useTranslations } from '../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Translations for the widget
+const widgetText = {
+  pt: {
+    title: 'E-book Gratuito',
+    subtitle: 'Inteligência Artificial para Negócios',
+    description: 'Como Automatizar e Escalar a sua Empresa',
+    nameLabel: 'Nome',
+    namePlaceholder: 'Seu nome',
+    emailLabel: 'Email',
+    emailPlaceholder: 'O seu email',
+    termsLabel: 'Concordo em receber conteúdos e novidades por email',
+    buttonText: 'Receber E-book Grátis',
+    thankYouTitle: 'Obrigado!',
+    thankYouMessage1: 'O seu e-book foi enviado para o seu email.',
+    thankYouMessage2: 'Caso não encontre, verifique a pasta de spam.',
+    downloadButtonText: 'Baixar E-book Agora'
+  },
+  en: {
+    title: 'Free E-book',
+    subtitle: 'Artificial Intelligence for Business',
+    description: 'How to Automate and Scale Your Company',
+    nameLabel: 'Name',
+    namePlaceholder: 'Your name',
+    emailLabel: 'Email',
+    emailPlaceholder: 'Your email',
+    termsLabel: 'I agree to receive content and news by email',
+    buttonText: 'Get Free E-book',
+    thankYouTitle: 'Thank you!',
+    thankYouMessage1: 'Your e-book has been sent to your email.',
+    thankYouMessage2: 'If you can\'t find it, check your spam folder.',
+    downloadButtonText: 'Download E-book Now'
+  }
+};
+
+// Use the appropriate language
+const text = widgetText[lang] || widgetText.pt;
+
+// Path to the e-book file
+const ebookPath = '/../../widget-e-book/assets/ebook-ia-para-negocios.pdf';
+---
+
+<div id="ebook-widget" class="widget-container" style="display: none;">
+  <div class="widget-content">
+    <div class="widget-header">
+      <i class="fas fa-brain fa-3x"></i>
+      <h2>{text.title}</h2>
+      <h3>{text.subtitle}</h3>
+      <p>{text.description}</p>
+    </div>
+    
+    <div class="widget-form-container">
+      <form id="lead-form" class="lead-form">
+        <div class="form-group">
+          <label for="name">{text.nameLabel}</label>
+          <input type="text" id="name" name="name" placeholder={text.namePlaceholder} required>
+        </div>
+        <div class="form-group">
+          <label for="email">{text.emailLabel}</label>
+          <input type="email" id="email" name="email" placeholder={text.emailPlaceholder} required>
+        </div>
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">{text.termsLabel}</label>
+        </div>
+        <button type="submit" class="submit-button">{text.buttonText}</button>
+      </form>
+    </div>
+    
+    <div class="widget-success" style="display: none;">
+      <i class="fas fa-check-circle fa-3x"></i>
+      <h3>{text.thankYouTitle}</h3>
+      <p>{text.thankYouMessage1}</p>
+      <p>{text.thankYouMessage2}</p>
+      <a href={ebookPath} id="download-ebook" class="download-button" download>{text.downloadButtonText}</a>
+    </div>
+  </div>
+  <button class="widget-close" onclick="hideEbookWidget()">&times;</button>
+</div>
+
+<style>
+/* Widget styles */
+.widget-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.widget-content {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  animation: slideIn 0.4s ease-out;
+  color: #333;
+}
+
+.widget-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.widget-header i {
+  color: var(--secondary);
+  margin-bottom: 20px;
+}
+
+.widget-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.widget-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--secondary);
+}
+
+.widget-header p {
+  font-size: 16px;
+  color: #666;
+}
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus {
+  border-color: var(--secondary);
+  outline: none;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-group label {
+  font-size: 14px;
+  color: #666;
+}
+
+.submit-button {
+  background: linear-gradient(to right, var(--secondary), var(--accent));
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.widget-success {
+  text-align: center;
+}
+
+.widget-success i {
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+.widget-success h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--primary);
+}
+
+.widget-success p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.download-button {
+  display: inline-block;
+  background: linear-gradient(to right, var(--secondary), var(--accent));
+  color: white;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.download-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.widget-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.widget-close:hover {
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
+
+<script>
+// Widget E-book IA
+(function() {
+  // Configuration
+  const config = {
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbxY8EvYR3xLcacuMrE6juaq2Y4ylGJpdy3nVg_WLPbiw3_BojJ4rgJltH0CF8vG-BHl/exec',
+    ebookUrl: '/../../widget-e-book/assets/ebook-ia-para-negocios.pdf',
+    autoShowDelay: 0, // Show immediately on first visit
+    scrollTrigger: 0, // Disabled scroll trigger
+    cookieExpiry: 7, // days
+    popupInterval: 60000 // 1 minute in milliseconds
+  };
+
+  // Setup event listeners
+  function setupEventListeners() {
+    const leadForm = document.getElementById('lead-form');
+    const formContainer = document.querySelector('.widget-form-container');
+    const successContainer = document.querySelector('.widget-success');
+    
+    if (leadForm) {
+      leadForm.addEventListener('submit', handleFormSubmit);
+    }
+
+    const downloadButton = document.getElementById('download-ebook');
+    if (downloadButton) {
+      downloadButton.addEventListener('click', handleDownload);
+    }
+  }
+
+  // Handle form submission
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const terms = document.getElementById('terms').checked;
+    
+    if (!name || !email || !terms) {
+      alert('Por favor, preencha todos os campos e aceite os termos.');
+      return;
+    }
+    
+    // Show loading indicator
+    const submitButton = document.querySelector('.submit-button');
+    submitButton.textContent = 'Enviando...';
+    submitButton.disabled = true;
+    
+    try {
+      // Send data to Google Sheets
+      await fetch(config.googleScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          terms: terms,
+          source: document.referrer || 'Widget E-book'
+        })
+      });
+
+      // Store lead data
+      localStorage.setItem('ebook_lead', JSON.stringify({
+        name: name,
+        email: email,
+        date: new Date().toISOString()
+      }));
+
+      // Show success message
+      showSuccessMessage();
+      
+      // Set cookie to not show the widget again
+      setCookie('ebook_downloaded', 'true', config.cookieExpiry);
+      
+    } catch (error) {
+      console.error('Error:', error);
+      showSuccessMessage(); // Show success even with error to not harm experience
+      
+      // Store for retry
+      localStorage.setItem('ebook_lead_error', JSON.stringify({
+        name: name,
+        email: email,
+        terms: terms,
+        date: new Date().toISOString(),
+        error: true
+      }));
+    }
+  }
+
+  // Handle e-book download
+  function handleDownload(e) {
+    e.preventDefault();
+    
+    const link = document.createElement('a');
+    link.href = config.ebookUrl;
+    link.download = 'IA-para-Negocios.pdf';
+    link.target = '_blank';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Log download attempt
+    console.log('E-book download initiated:', config.ebookUrl);
+  }
+
+  // Show success message
+  function showSuccessMessage() {
+    const formContainer = document.querySelector('.widget-form-container');
+    const successContainer = document.querySelector('.widget-success');
+    
+    formContainer.style.display = 'none';
+    successContainer.style.display = 'block';
+  }
+
+  // Helper functions
+  function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + "=" + value + ";expires=" + date.toUTCString() + ";path=/";
+  }
+
+  function getCookie(name) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  // Public functions
+  window.showEbookWidget = function() {
+    if (getCookie('ebook_downloaded')) return; // Don't show if already downloaded
+    
+    const widget = document.getElementById('ebook-widget');
+    if (widget) widget.style.display = 'flex';
+  };
+
+  window.hideEbookWidget = function() {
+    const widget = document.getElementById('ebook-widget');
+    if (widget) widget.style.display = 'none';
+  };
+
+  // Initialization
+  document.addEventListener('DOMContentLoaded', function() {
+    setupEventListeners();
+    
+    // Check if this is first visit or if the popup interval has passed
+    const lastPopupTime = localStorage.getItem('ebook_last_popup');
+    const currentTime = new Date().getTime();
+    
+    if (!lastPopupTime || (currentTime - parseInt(lastPopupTime)) > config.popupInterval) {
+      // Show immediately on first visit or after interval has passed
+      showEbookWidget();
+      // Store the current time
+      localStorage.setItem('ebook_last_popup', currentTime.toString());
+    }
+    
+    // Set up interval for showing the popup once per minute
+    setInterval(function() {
+      if (!getCookie('ebook_downloaded')) {
+        showEbookWidget();
+        localStorage.setItem('ebook_last_popup', new Date().getTime().toString());
+      }
+    }, config.popupInterval);
+    
+    // Exit intent (only if popup hasn't been shown recently)
+    document.addEventListener('mouseleave', function(e) {
+      const lastPopup = localStorage.getItem('ebook_last_popup');
+      const now = new Date().getTime();
+      
+      if (e.clientY < 0 && (!lastPopup || (now - parseInt(lastPopup)) > config.popupInterval)) {
+        showEbookWidget();
+        localStorage.setItem('ebook_last_popup', now.toString());
+      }
+    });
+  });
+})();

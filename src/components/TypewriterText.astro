@@ -10,24 +10,44 @@ const { words, prefix = '', suffix = '', className = '' } = Astro.props;
 ---
 
 <div class={`typewriter-container ${className}`}>
-  {prefix}<span id="typewriter" class="gradient-text"></span>{suffix}
+  {prefix}<span id="typewriter" class="gradient-text" data-words={JSON.stringify(words)}></span>{suffix}
 </div>
 
 <script>
   import Typed from 'typed.js';
 
-  const typewriterElement = document.getElementById('typewriter');
-  if (typewriterElement) {
-    const typed = new Typed(typewriterElement, {
-      strings: ['Soluções', 'Automações', 'Agentes'],
-      typeSpeed: 100,
-      backSpeed: 50,
-      backDelay: 2000,
-      loop: true,
-      smartBackspace: true,
-      cursorChar: '|',
-    });
+  function initTypewriter() {
+    const typewriterElement = document.getElementById('typewriter');
+    if (typewriterElement) {
+      // Get words from data attribute (allows for language-specific words)
+      let words = ['Soluções', 'Automações', 'Agentes']; // Default fallback
+      
+      try {
+        if (typewriterElement.dataset.words) {
+          words = JSON.parse(typewriterElement.dataset.words);
+        }
+      } catch (e) {
+        console.error('Error parsing typewriter words:', e);
+      }
+      
+      // Initialize Typed.js
+      const typed = new Typed(typewriterElement, {
+        strings: words,
+        typeSpeed: 100,
+        backSpeed: 50,
+        backDelay: 2000,
+        loop: true,
+        smartBackspace: true,
+        cursorChar: '|',
+      });
+    }
   }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initTypewriter);
+  
+  // Re-initialize when navigating between pages (for Astro's view transitions)
+  document.addEventListener('astro:page-load', initTypewriter);
 </script>
 
 <style>

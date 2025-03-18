@@ -3,6 +3,7 @@ import '@fontsource/inter';
 import '@fontsource/poppins';
 import Footer from '../components/Footer.astro';
 import LoadingPage from '../components/LoadingPage.astro';
+import EbookWidget from '../components/EbookWidget.astro';
 
 interface Props {
   title: string;
@@ -24,6 +25,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body class="font-inter bg-neutral text-white">
     <LoadingPage />
@@ -38,6 +40,7 @@ const {
       </div>
     </div>
     <Footer />
+    <EbookWidget />
 
     <script is:inline>
       (function(){
