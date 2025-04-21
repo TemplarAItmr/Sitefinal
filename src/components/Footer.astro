@@ -18,8 +18,28 @@ const links = {
     { text: t('footer.legal.terms'), href: '/termos-uso' }
   ],
   contacto: [
-    { text: '+351 913 139 933', href: 'tel:+351913139933' },
-    { text: 'templarai.tmr@gmail.com', href: 'mailto:templarai.tmr@gmail.com' }
+    { 
+      text: '+351 913 139 933', 
+      href: 'tel:+351913139933',
+      icon: 'fas fa-phone'
+    },
+    { 
+      text: 'templarai.tmr@gmail.com', 
+      href: 'mailto:templarai.tmr@gmail.com',
+      icon: 'fas fa-envelope'
+    }
+  ],
+  social: [
+    {
+      icon: 'fab fa-facebook',
+      href: 'https://facebook.com/templarai',
+      label: 'Facebook'
+    },
+    {
+      icon: 'fab fa-instagram',
+      href: 'https://instagram.com/templarai',
+      label: 'Instagram'
+    }
   ]
 };
 ---
@@ -73,13 +93,29 @@ const links = {
             <li>
               <a 
                 href={link.href}
-                class="text-sm text-white/60 hover:text-accent transition-colors"
+                class="text-sm text-white/60 hover:text-accent transition-colors flex items-center gap-2"
               >
+                <i class={link.icon}></i>
                 {link.text}
               </a>
             </li>
           ))}
         </ul>
+        
+        <!-- Social Media Links -->
+        <div class="mt-4 flex gap-4">
+          {links.social.map(social => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/60 hover:text-accent transition-colors text-2xl"
+              aria-label={social.label}
+            >
+              <i class={social.icon}></i>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
 
