@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+import { languages } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const questions = [
+  {
+    question: t('faq.whatIsAI.question'),
+    answer: t('faq.whatIsAI.answer')
+  },
+  {
+    question: t('faq.benefits.question'),
+    answer: t('faq.benefits.answer')
+  },
+  {
+    question: t('faq.jobs.question'),
+    answer: t('faq.jobs.answer')
+  },
+  {
+    question: t('faq.implementation.question'),
+    answer: t('faq.implementation.answer')
+  },
+  {
+    question: t('faq.costs.question'),
+    answer: t('faq.costs.answer')
+  },
+  {
+    question: t('faq.security.question'),
+    answer: t('faq.security.answer')
+  },
+  {
+    question: t('faq.support.question'),
+    answer: t('faq.support.answer')
+  }
+];
+---
+
+<Layout 
+  title={t('faq.page.title')}
+  description={t('faq.page.description')}
+>
+  <Header />
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <FAQAccordion questions={questions} />
+      </div>
+    </section>
+  </main>
+</Layout> 
