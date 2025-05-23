@@ -276,10 +276,10 @@ const ebookPath = '/../../widget-e-book/assets/ebook-ia-para-negocios.pdf';
   const config = {
     googleScriptUrl: 'https://script.google.com/macros/s/AKfycbxY8EvYR3xLcacuMrE6juaq2Y4ylGJpdy3nVg_WLPbiw3_BojJ4rgJltH0CF8vG-BHl/exec',
     ebookUrl: '/../../widget-e-book/assets/ebook-ia-para-negocios.pdf',
-    autoShowDelay: 0, // Show immediately on first visit
+    autoShowDelay: 30000, // Mostrar após 30 segundos na primeira visita
     scrollTrigger: 0, // Disabled scroll trigger
     cookieExpiry: 7, // days
-    popupInterval: 60000 // 1 minute in milliseconds
+    popupInterval: 600000 // 10 minutes in milliseconds
   };
 
   // Setup event listeners
@@ -428,22 +428,39 @@ const ebookPath = '/../../widget-e-book/assets/ebook-ia-para-negocios.pdf';
       localStorage.setItem('ebook_last_popup', currentTime.toString());
     }
     
-    // Set up interval for showing the popup once per minute
+    // Set up interval for showing the popup a cada 10 minutos (desativado para ser menos intrusivo)
+    // Comentado para reduzir a frequência de exibição e melhorar a experiência do usuário
+    /*
     setInterval(function() {
       if (!getCookie('ebook_downloaded')) {
         showEbookWidget();
         localStorage.setItem('ebook_last_popup', new Date().getTime().toString());
       }
     }, config.popupInterval);
+    */
     
-    // Exit intent (only if popup hasn't been shown recently)
+    // Exit intent (only if popup hasn't been shown recently and user has spent at least 1 minute on the site)
+    let pageEntryTime = new Date().getTime();
+    let hasTriggeredExitIntent = false;
+    
     document.addEventListener('mouseleave', function(e) {
       const lastPopup = localStorage.getItem('ebook_last_popup');
       const now = new Date().getTime();
+      const timeOnPage = now - pageEntryTime;
       
-      if (e.clientY < 0 && (!lastPopup || (now - parseInt(lastPopup)) > config.popupInterval)) {
+      // Só mostrar o popup de exit intent se:
+      // 1. O mouse sair pela parte superior da janela
+      // 2. O usuário estiver na página há pelo menos 60 segundos
+      // 3. O popup não tiver sido mostrado recentemente
+      // 4. O exit intent não tiver sido acionado antes nesta sessão
+      if (e.clientY < 0 && 
+          timeOnPage > 60000 && 
+          (!lastPopup || (now - parseInt(lastPopup)) > config.popupInterval * 2) && 
+          !hasTriggeredExitIntent && 
+          !getCookie('ebook_downloaded')) {
         showEbookWidget();
         localStorage.setItem('ebook_last_popup', now.toString());
+        hasTriggeredExitIntent = true;
       }
     });
   });

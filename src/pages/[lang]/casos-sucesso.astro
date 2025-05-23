@@ -20,7 +20,65 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const successCases: CaseStudy[] = [];
+const successCases: CaseStudy[] = [
+  {
+    title: lang === 'en' ? 'Customer Service Automation' : 'Automação de Atendimento',
+    company: lang === 'en' ? 'Sabor & Arte Restaurant' : 'Restaurante Sabor & Arte',
+    description: lang === 'en' 
+      ? 'Implementation of an intelligent chatbot for online reservations and orders, significantly improving operational efficiency.'
+      : 'Implementação de um chatbot inteligente para reservas e pedidos online, melhorando significativamente a eficiência operacional.',
+    results: lang === 'en' 
+      ? [
+          '70% reduction in waiting time for service',
+          '45% increase in online reservations',
+          'Customer satisfaction increased to 4.8/5'
+        ]
+      : [
+          'Redução de 70% no tempo de espera para atendimento',
+          'Aumento de 45% nas reservas online',
+          'Satisfação do cliente aumentou para 4.8/5'
+        ],
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800'
+  },
+  {
+    title: lang === 'en' ? 'Intelligent Gym Management' : 'Gestão Inteligente de Academia',
+    company: lang === 'en' ? 'Fitness Prime' : 'Fitness Prime',
+    description: lang === 'en'
+      ? 'Development of a customized platform for member management and workout routine automation.'
+      : 'Desenvolvimento de uma plataforma personalizada para gestão de membros e automatização de rotinas de treino.',
+    results: lang === 'en'
+      ? [
+          'Client retention increased by 35%',
+          'Savings of 20 hours per week in administrative tasks',
+          '50% growth in member base in 6 months'
+        ]
+      : [
+          'Retenção de clientes aumentou 35%',
+          'Economia de 20 horas semanais em tarefas administrativas',
+          'Crescimento de 50% na base de membros em 6 meses'
+        ],
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800'
+  },
+  {
+    title: lang === 'en' ? 'Hotel Booking System' : 'Sistema de Reservas Hoteleiras',
+    company: lang === 'en' ? 'Vista Mar Hotel' : 'Hotel Vista Mar',
+    description: lang === 'en'
+      ? 'Implementation of an integrated booking system with AI for occupancy optimization and dynamic pricing.'
+      : 'Implementação de um sistema integrado de reservas com IA para otimização de ocupação e precificação dinâmica.',
+    results: lang === 'en'
+      ? [
+          '25% increase in occupancy rate',
+          '30% increase in average revenue per room',
+          '60% reduction in booking processing time'
+        ]
+      : [
+          'Aumento de 25% na taxa de ocupação',
+          'Incremento de 30% na receita média por quarto',
+          'Redução de 60% no tempo de processamento de reservas'
+        ],
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800'
+  }
+];
 ---
 
 <Layout 
@@ -41,10 +99,148 @@ const successCases: CaseStudy[] = [];
             </p>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-8">
+          <!-- Casos originais temporariamente ocultados -->
+          <div class="grid md:grid-cols-2 gap-8 hidden">
             {successCases.map(caseStudy => (
               <CaseCard {...caseStudy} />
             ))}
+          </div>
+
+          <!-- Mind7 Supplements Case Study Section -->
+          <div class="grid md:grid-cols-2 gap-12 mt-16 mb-20 max-w-5xl mx-auto px-4">
+            <article class="glass rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 case-card">
+              <div class="relative h-48 overflow-hidden">
+                <img 
+                  src="/images/mind7-case.png" 
+                  alt={lang === 'en' ? 'Mind7 Supplements website screenshot' : 'Captura de ecrã do website Mind7 Supplements'}
+                  class="w-full h-full object-cover parallax-image" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+                <div class="absolute top-3 right-3 bg-accent/90 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm shadow-lg transform rotate-3 z-10">
+                  {lang === 'en' ? 'E-commerce' : 'E-commerce'}
+                </div>
+                <div class="absolute bottom-4 left-4 text-white z-10">
+                  <h3 class="text-xl font-poppins font-semibold mb-1 highlight-title">
+                    {lang === 'en' ? 'Mind7 Supplements: Online Store' : 'Mind7 Supplements: Loja Online'}
+                  </h3>
+                </div>
+              </div>
+              <div class="p-6 relative glow-border">
+                <div class="absolute -top-6 right-6 bg-gradient-to-r from-[#AD00FF] to-[#00C8FF] text-white text-xs px-3 py-1 rounded-full shadow-lg">
+                  <span class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                    </svg>
+                    2025
+                  </span>
+                </div>
+                <p class="text-white/80 mb-4">
+                  {lang === 'en' 
+                    ? 'We created a modern, elegant online store for Mind7, a supplement brand focused on wellness. The website was designed to be fully functional and sales-optimized from day one.'
+                    : 'Criámos uma loja online moderna e elegante para a Mind7, uma marca de suplementos focada no bem-estar. O website foi desenvolvido para ser totalmente funcional e otimizado para vendas desde o primeiro dia.'}
+                </p>
+                <h4 class="font-semibold text-accent mb-2 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
+                  </svg>
+                  {lang === 'en' ? 'Results Achieved:' : 'Resultados Alcançados:'}
+                </h4>
+                <ul class="space-y-2">
+                  {(lang === 'en' 
+                    ? [
+                        'Conversion rate increased by <span class="stat-highlight">40%</span>',
+                        'Customer support time reduced by <span class="stat-highlight">65%</span>',
+                        'Average order value increased by <span class="stat-highlight">28%</span>'
+                      ] 
+                    : [
+                        'Taxa de conversão aumentou <span class="stat-highlight">40%</span>',
+                        'Tempo de suporte ao cliente reduzido em <span class="stat-highlight">65%</span>',
+                        'Valor médio de pedido aumentou <span class="stat-highlight">28%</span>'
+                      ]
+                  ).map(result => (
+                    <li class="flex items-start gap-2 result-item">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent flex-shrink-0 mt-0.5 result-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-white/80" set:html={result} />
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-6 text-right">
+                  <a 
+                    href="https://mind7supplements.store" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-block animated-button glow-effect bg-gradient-to-r from-[#AD00FF] to-[#00C8FF] text-white px-5 py-2.5 rounded-lg transition-all hover:scale-105 text-sm flex items-center justify-center gap-2 mr-2 mb-1"
+                  >
+                    <span>{lang === 'en' ? 'See Live Project' : 'Ver Projeto ao Vivo'}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+            
+            <!-- Second card for chatbot integration -->
+            <article class="glass rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 case-card">
+              <div class="relative h-48 overflow-hidden">
+                <img 
+                  src="/images/mind7-chatbot.png" 
+                  alt={lang === 'en' ? 'Mind7 AI Chatbot interface' : 'Interface do chatbot de IA da Mind7'}
+                  class="w-full h-full object-cover parallax-image" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+                <div class="absolute top-3 right-3 bg-[#AD00FF]/90 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm shadow-lg transform -rotate-3 z-10">
+                  {lang === 'en' ? 'AI Integration' : 'Integração IA'}
+                </div>
+                <div class="absolute bottom-4 left-4 text-white z-10">
+                  <h3 class="text-xl font-poppins font-semibold mb-1 highlight-title">
+                    {lang === 'en' ? 'Mind7: AI Chatbot Integration' : 'Mind7: Integração de Chatbot IA'}
+                  </h3>
+                </div>
+              </div>
+              <div class="p-6 relative glow-border">
+                <div class="absolute -top-6 right-6 bg-gradient-to-r from-[#AD00FF] to-[#00C8FF] text-white text-xs px-3 py-1 rounded-full shadow-lg">
+                  <span class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                    24/7
+                  </span>
+                </div>
+                <p class="text-white/80 mb-4">
+                  {lang === 'en' 
+                    ? 'We integrated an intelligent chatbot that interacts with customers in real-time, automating support and boosting conversions with personalized product recommendations.'
+                    : 'Integramos um chatbot inteligente que responde a clientes em tempo real, automatizando o suporte e aumentando as conversões com recomendações personalizadas de produtos.'}
+                </p>
+                <h4 class="font-semibold text-accent mb-2 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+                  </svg>
+                  {lang === 'en' ? 'Client Testimonial:' : 'Testemunho do Cliente:'}
+                </h4>
+                <blockquote class="italic text-sm text-white/80 border-l-2 border-accent pl-4 my-4 testimonial">
+                  {lang === 'en'
+                    ? '"TemplarAI truly captured our brand essence and delivered beyond expectations. The website sells, the chatbot works 24/7 — and we focus on growth." — Mind7 Team'
+                    : '"A TemplarAI captou a essência da nossa marca e criou algo além do esperado. O site vende, o chatbot trabalha 24/7 — e nós focamo-nos em crescer." — Mind7 Team'}
+                </blockquote>
+                <div class="mt-6 text-right">
+                  <a 
+                    href="https://mind7supplements.store/chatbot" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-block animated-button glow-effect bg-gradient-to-r from-[#AD00FF] to-[#00C8FF] text-white px-5 py-2.5 rounded-lg transition-all hover:scale-105 text-sm flex items-center justify-center gap-2 mr-2 mb-1"
+                  >
+                    <span>{lang === 'en' ? 'Try the Chatbot' : 'Experimentar o Chatbot'}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                      <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
           </div>
 
           <div class="text-center mt-16">
@@ -63,3 +259,223 @@ const successCases: CaseStudy[] = [];
     </section>
   </main>
 </Layout>
+
+<style>
+  /* Efeitos visuais avançados para os cards */
+  .glass {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Efeito de brilho para os cards */
+  .glass::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(173, 0, 255, 0),
+      rgba(173, 0, 255, 0),
+      rgba(0, 200, 255, 0.1),
+      rgba(173, 0, 255, 0),
+      rgba(173, 0, 255, 0)
+    );
+    transform: rotate(30deg);
+    transition: transform 1.5s ease-in-out;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .glass:hover::before {
+    transform: rotate(30deg) translate(25%, 25%);
+  }
+  
+  .glass:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Efeito de destaque para os resultados */
+  .glass li {
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .glass li:hover {
+    transform: translateX(5px);
+  }
+  
+  .glass li:hover svg {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(0, 200, 255, 0.7));
+  }
+  
+  .glass svg {
+    transition: all 0.3s ease;
+  }
+  
+  /* Animação para o botão */
+  .glow-effect {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .glow-effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: all 0.6s ease;
+  }
+  
+  .glow-effect:hover::after {
+    left: 100%;
+  }
+  
+  .glow-effect:hover {
+    box-shadow: 0 0 15px rgba(173, 0, 255, 0.5), 0 0 15px rgba(0, 200, 255, 0.5);
+  }
+  
+  /* Efeito de paralaxe para as imagens */
+  .glass .relative img {
+    transition: transform 0.5s ease-out;
+    transform: scale(1.05);
+  }
+  
+  .glass:hover .relative img {
+    transform: scale(1.15);
+  }
+  
+  /* Efeito de destaque para o testemunho */
+  blockquote {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  blockquote:hover {
+    transform: scale(1.03);
+    background: linear-gradient(45deg, rgba(13, 13, 35, 0.8), rgba(13, 13, 35, 0.4));
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  
+  blockquote::before {
+    content: "“";
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    font-size: 60px;
+    color: rgba(0, 200, 255, 0.2);
+    font-family: serif;
+    z-index: 0;
+  }
+  
+  /* Efeito de destaque para os títulos */
+  .glass h3 {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .glass h3::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #AD00FF, #00C8FF);
+    transition: width 0.3s ease;
+  }
+  
+  .glass:hover h3::after {
+    width: 100%;
+  }
+  
+  /* Animação de entrada para os cards */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .grid article:nth-child(1) {
+    animation: fadeInUp 0.6s ease-out 0.1s both;
+  }
+  
+  .grid article:nth-child(2) {
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+  }
+  /* Ajustes de formatação e margens */
+  .grid article {
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+  }
+  
+  .grid article .relative {
+    height: 200px;
+  }
+  
+  @media (min-width: 768px) {
+    .grid article .relative {
+      height: 240px;
+    }
+  }
+  
+  .grid article .p-6 {
+    padding: 2rem;
+  }
+  
+  .grid article h3 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+  
+  .grid article h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .grid article ul {
+    margin-bottom: 1.5rem;
+  }
+  
+  .grid article blockquote {
+    margin: 1.5rem 0;
+    padding-left: 1.25rem;
+  }
+  
+  .text-center.mt-16 {
+    margin-top: 3rem;
+  }
+  
+  /* Ajuste para os botões de call-to-action */
+  .animated-button {
+    margin-right: 0.75rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    float: right;
+    clear: both;
+  }
+  
+  .grid article .p-6 {
+    padding-bottom: 4rem;
+  }
+</style>

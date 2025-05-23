@@ -64,6 +64,82 @@ const successCases = [
             ))}
           </div>
 
+          <!-- Mind7 Supplements Case Study Section -->
+          <section class="mt-16 mb-16 bg-[#0C0C1E] rounded-lg overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+              <!-- Image Column -->
+              <div class="md:w-1/2">
+                <div class="relative h-full min-h-[300px]">
+                  <img 
+                    src="/images/mind7-case.png" 
+                    alt="Mind7 Supplements website screenshot" 
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-r from-primary/50 to-transparent md:bg-gradient-to-l"></div>
+                </div>
+              </div>
+              
+              <!-- Content Column -->
+              <div class="md:w-1/2 p-8">
+                <!-- Portuguese Content -->
+                <div class="lang-pt">
+                  <h2 class="text-2xl md:text-3xl font-poppins font-bold text-[#00C8FF] mb-4">
+                    Mind7 Supplements: De Ideia a Marca de Sucesso Online
+                  </h2>
+                  <div class="text-white/90 space-y-4">
+                    <p>
+                      Criámos uma loja online moderna e elegante para a <strong>Mind7</strong>, uma marca de suplementos focada no bem-estar. O website foi desenvolvido para ser totalmente funcional e otimizado para vendas desde o primeiro dia.
+                    </p>
+                    <p>
+                      Além disso, integramos um <strong>chatbot inteligente</strong> que responde a clientes em tempo real, automatizando o suporte e aumentando as conversões.
+                    </p>
+                    <blockquote class="italic text-sm text-white/80 border-l-2 border-accent pl-4 my-6">
+                      "A TemplarAI captou a essência da nossa marca e criou algo além do esperado. O site vende, o chatbot trabalha 24/7 — e nós focamo-nos em crescer." — Mind7 Team
+                    </blockquote>
+                    <div class="mt-6">
+                      <a 
+                        href="https://mind7supplements.store" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="inline-block glow-effect bg-gradient-to-r from-[#AD00FF] to-[#00C8FF] text-white px-6 py-2 rounded-lg transition-all hover:scale-105"
+                      >
+                        Ver Projeto ao Vivo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- English Content -->
+                <div class="lang-en hidden">
+                  <h2 class="text-2xl md:text-3xl font-poppins font-bold text-[#00C8FF] mb-4">
+                    Mind7 Supplements: From Vision to Digital Success
+                  </h2>
+                  <div class="text-white/90 space-y-4">
+                    <p>
+                      We created a modern, elegant online store for <strong>Mind7</strong>, a supplement brand focused on wellness. The website was designed to be fully functional and sales-optimized from day one.
+                    </p>
+                    <p>
+                      We also integrated an <strong>intelligent chatbot</strong> that interacts with customers in real-time, automating support and boosting conversions.
+                    </p>
+                    <blockquote class="italic text-sm text-white/80 border-l-2 border-accent pl-4 my-6">
+                      "TemplarAI truly captured our brand essence and delivered beyond expectations. The website sells, the chatbot works 24/7 — and we focus on growth." — Mind7 Team
+                    </blockquote>
+                    <div class="mt-6">
+                      <a 
+                        href="https://mind7supplements.store" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="inline-block glow-effect bg-gradient-to-r from-[#AD00FF] to-[#00C8FF] text-white px-6 py-2 rounded-lg transition-all hover:scale-105"
+                      >
+                        See Live Project
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <div class="mt-12 text-center">
             <a 
               href="/contacto" 
@@ -77,3 +153,37 @@ const successCases = [
     </section>
   </main>
 </Layout>
+
+<script>
+  // Language detection and switching for Mind7 case study
+  document.addEventListener('DOMContentLoaded', () => {
+    // Get the current language from URL or use browser language as fallback
+    const getLanguage = () => {
+      const urlPath = window.location.pathname.split('/');
+      // Check if URL has language code
+      if (urlPath.length > 1 && ['en', 'pt'].includes(urlPath[1])) {
+        return urlPath[1];
+      }
+      // Fallback to browser language or default to Portuguese
+      const browserLang = navigator.language.split('-')[0];
+      return browserLang === 'en' ? 'en' : 'pt';
+    };
+
+    const currentLang = getLanguage();
+    
+    // Show content based on language
+    const ptContent = document.querySelector('.lang-pt');
+    const enContent = document.querySelector('.lang-en');
+    
+    if (ptContent && enContent) {
+      if (currentLang === 'en') {
+        ptContent.classList.add('hidden');
+        enContent.classList.remove('hidden');
+      } else {
+        // Default to Portuguese
+        ptContent.classList.remove('hidden');
+        enContent.classList.add('hidden');
+      }
+    }
+  });
+</script>
